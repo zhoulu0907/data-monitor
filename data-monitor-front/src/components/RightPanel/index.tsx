@@ -1,4 +1,5 @@
 import { useDashboardStore } from '../../store/useDashboardStore';
+import LoadingSkeleton from '../LoadingSkeleton';
 import ResourceSummary from './ResourceSummary';
 import ResourceBarChart from './ResourceBarChart';
 import AiOperations from './AiOperations';
@@ -17,15 +18,15 @@ export default function RightPanel() {
         <div style={{ padding: '8px 12px' }}>
           {financeTrends ? (
             <ResourceSummary data={financeTrends.resource.summary} />
-          ) : null}
+          ) : (
+            <LoadingSkeleton />
+          )}
         </div>
         <div style={{ flex: 1, padding: '0 8px 8px' }}>
           {financeTrends ? (
             <ResourceBarChart data={financeTrends.resource.charts} />
           ) : (
-            <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '20px' }}>
-              加载中...
-            </div>
+            <LoadingSkeleton />
           )}
         </div>
       </div>

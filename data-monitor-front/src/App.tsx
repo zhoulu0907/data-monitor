@@ -1,5 +1,10 @@
+import ErrorBoundary from './components/ErrorBoundary';
 import DashboardLayout from './layouts/DashboardLayout';
 
 export default function App() {
-  return <DashboardLayout />;
+  return (
+    <ErrorBoundary>
+      <DashboardLayout />
+    </ErrorBoundary>
+  );
 }

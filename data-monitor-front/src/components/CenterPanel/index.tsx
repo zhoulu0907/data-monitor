@@ -1,4 +1,5 @@
 import { useDashboardStore } from '../../store/useDashboardStore';
+import LoadingSkeleton from '../LoadingSkeleton';
 import RevenueLineChart from './RevenueLineChart';
 import CostPenetrationChart from './CostPenetrationChart';
 import PersonnelSummary from './PersonnelSummary';
@@ -21,9 +22,7 @@ export default function CenterPanel() {
             {financeTrends ? (
               <RevenueLineChart data={financeTrends} />
             ) : (
-              <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '30px' }}>
-                加载中...
-              </div>
+              <LoadingSkeleton />
             )}
           </div>
         </div>
@@ -38,9 +37,7 @@ export default function CenterPanel() {
             {financeTrends ? (
               <CostPenetrationChart data={financeTrends} />
             ) : (
-              <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '30px' }}>
-                加载中...
-              </div>
+              <LoadingSkeleton />
             )}
           </div>
         </div>
@@ -60,9 +57,7 @@ export default function CenterPanel() {
             </div>
           </>
         ) : (
-          <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '30px' }}>
-            加载中...
-          </div>
+          <LoadingSkeleton />
         )}
       </div>
     </div>

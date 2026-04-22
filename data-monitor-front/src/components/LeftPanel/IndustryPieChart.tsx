@@ -16,17 +16,28 @@ export default function IndustryPieChart({ data }: Props) {
       trigger: 'item' as const,
       formatter: '{b}: {c}% ({d}%)',
     },
-    legend: {
-      type: 'scroll' as const,
-      orient: 'vertical' as const,
-      right: '5%',
-      top: 'middle',
-      textStyle: { color: '#8798af', fontSize: 11 },
-      pageTextStyle: { color: '#8798af' },
-      itemWidth: 10,
-      itemHeight: 10,
-      itemGap: 8,
-    },
+    legend: [
+      {
+        data: data.slice(0, 4).map((item) => item.name),
+        orient: 'vertical' as const,
+        left: '2%',
+        top: 'middle',
+        textStyle: { color: '#8798af', fontSize: 11 },
+        itemWidth: 10,
+        itemHeight: 10,
+        itemGap: 8,
+      },
+      {
+        data: data.slice(4).map((item) => item.name),
+        orient: 'vertical' as const,
+        right: '2%',
+        top: 'middle',
+        textStyle: { color: '#8798af', fontSize: 11 },
+        itemWidth: 10,
+        itemHeight: 10,
+        itemGap: 8,
+      },
+    ],
     graphic: [
       {
         type: 'text' as const,
@@ -56,8 +67,6 @@ export default function IndustryPieChart({ data }: Props) {
         type: 'pie' as const,
         radius: ['50%', '72%'],
         center: ['50%', '50%'],
-        left: '0%',
-        right: '35%',
         selectedMode: 'single' as const,
         selectedOffset: 8,
         itemStyle: {

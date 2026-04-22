@@ -1,5 +1,6 @@
 import { useDashboardStore } from '../../store/useDashboardStore';
 import { useCountUp, formatNumber } from '../../hooks/useCountUp';
+import LoadingSkeleton from '../LoadingSkeleton';
 import type { KpiItem } from '../../types/dashboard';
 
 const iconMap: Record<string, string> = {
@@ -65,7 +66,13 @@ function KpiCard({ item, index }: { item: KpiItem; index: number }) {
 export default function KpiCards() {
   const kpiSummary = useDashboardStore((s) => s.kpiSummary);
 
-  if (!kpiSummary) return null;
+  if (!kpiSummary) {
+    return (
+      <div style={{ display: 'flex', gap: '10px', height: '60px' }}>
+        <LoadingSkeleton />
+      </div>
+    );
+  }
 
   const items: KpiItem[] = [
     kpiSummary.annualContract,

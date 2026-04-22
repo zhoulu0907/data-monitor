@@ -1,4 +1,5 @@
 import { useDashboardStore } from '../../store/useDashboardStore';
+import LoadingSkeleton from '../LoadingSkeleton';
 import FunnelChart from './FunnelChart';
 import IndustryPieChart from './IndustryPieChart';
 
@@ -17,9 +18,7 @@ export default function LeftPanel() {
           {marketPipeline ? (
             <FunnelChart data={marketPipeline.funnel} />
           ) : (
-            <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '30px' }}>
-              加载中...
-            </div>
+            <LoadingSkeleton />
           )}
         </div>
       </div>
@@ -34,9 +33,7 @@ export default function LeftPanel() {
           {marketPipeline ? (
             <IndustryPieChart data={marketPipeline.industryShare} />
           ) : (
-            <div style={{ color: 'var(--color-text-secondary)', textAlign: 'center', padding: '30px' }}>
-              加载中...
-            </div>
+            <LoadingSkeleton />
           )}
         </div>
       </div>
