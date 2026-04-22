@@ -20,11 +20,11 @@ function NavButton({ item, onClick }: { item: NavItem; onClick?: () => void }) {
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
-        padding: '6px 16px',
-        fontSize: '13px',
+        padding: '5px 14px',
+        fontSize: '12px',
         color: 'var(--color-text-secondary)',
         background: 'transparent',
-        border: '1px solid transparent',
+        border: 'none',
         borderRadius: '2px',
         cursor: 'pointer',
         transition: 'all 0.2s',
@@ -32,16 +32,16 @@ function NavButton({ item, onClick }: { item: NavItem; onClick?: () => void }) {
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = 'var(--color-glow)';
-        e.currentTarget.style.borderColor = 'rgba(0, 243, 255, 0.3)';
         e.currentTarget.style.background = 'rgba(0, 243, 255, 0.05)';
+        e.currentTarget.style.boxShadow = '0 0 8px rgba(0,243,255,0.15)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.color = 'var(--color-text-secondary)';
-        e.currentTarget.style.borderColor = 'transparent';
         e.currentTarget.style.background = 'transparent';
+        e.currentTarget.style.boxShadow = 'none';
       }}
     >
-      <span style={{ fontSize: '14px' }}>{item.icon}</span>
+      <span style={{ fontSize: '13px' }}>{item.icon}</span>
       {item.label}
     </button>
   );
@@ -59,7 +59,8 @@ export default function Header() {
   return (
     <div
       style={{
-        height: '70px',
+        height: '58px',
+        flexShrink: 0,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -68,25 +69,35 @@ export default function Header() {
       }}
     >
       {/* 左侧装饰线 + 导航 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1' }}>
-        <svg width="200" height="40" style={{ opacity: 0.4 }}>
-          <line x1="0" y1="20" x2="200" y2="20" stroke="#00f3ff" strokeWidth="1" />
-          <circle cx="200" cy="20" r="3" fill="#00f3ff" />
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1' }}>
+        <svg width="180" height="30" style={{ opacity: 0.4 }}>
+          <defs>
+            <linearGradient id="lineGradL" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="transparent" />
+              <stop offset="100%" stopColor="#00f3ff" />
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="15" x2="180" y2="15" stroke="url(#lineGradL)" strokeWidth="1" />
+          <circle cx="180" cy="15" r="2.5" fill="#00f3ff" />
         </svg>
         {leftNavItems.map((item) => (
           <NavButton key={item.key} item={item} />
         ))}
       </div>
 
-      {/* 中间标题 */}
+      {/* 中间标题 - 渐变发光 */}
       <div style={{ textAlign: 'center', flex: '0 0 auto' }}>
         <h1
-          className="glow-text"
           style={{
-            fontSize: '28px',
+            fontSize: '26px',
             fontWeight: 'bold',
             letterSpacing: '8px',
             margin: '0',
+            background: 'linear-gradient(90deg, #00f3ff, #1890ff, #00f3ff)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            filter: 'drop-shadow(0 0 12px rgba(0,243,255,0.3))',
           }}
         >
           数智企业服务平台
@@ -94,7 +105,7 @@ export default function Header() {
       </div>
 
       {/* 右侧导航 + 装饰线 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: '1', justifyContent: 'flex-end' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flex: '1', justifyContent: 'flex-end' }}>
         {rightNavItems.map((item) => (
           <NavButton
             key={item.key}
@@ -102,13 +113,19 @@ export default function Header() {
             onClick={item.key === 'fullscreen' ? handleFullscreen : undefined}
           />
         ))}
-        <svg width="200" height="40" style={{ opacity: 0.4 }}>
-          <circle cx="0" cy="20" r="3" fill="#00f3ff" />
-          <line x1="0" y1="20" x2="200" y2="20" stroke="#00f3ff" strokeWidth="1" />
+        <svg width="180" height="30" style={{ opacity: 0.4 }}>
+          <defs>
+            <linearGradient id="lineGradR" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stopColor="#00f3ff" />
+              <stop offset="100%" stopColor="transparent" />
+            </linearGradient>
+          </defs>
+          <circle cx="0" cy="15" r="2.5" fill="#00f3ff" />
+          <line x1="0" y1="15" x2="180" y2="15" stroke="url(#lineGradR)" strokeWidth="1" />
         </svg>
       </div>
 
-      {/* 底部发光分隔线 */}
+      {/* 底部发光分隔线 - 增强 */}
       <div
         style={{
           position: 'absolute',
@@ -116,7 +133,8 @@ export default function Header() {
           left: 0,
           right: 0,
           height: '1px',
-          background: 'linear-gradient(90deg, transparent, rgba(0,243,255,0.6), transparent)',
+          background: 'linear-gradient(90deg, transparent 5%, rgba(0,243,255,0.15) 15%, rgba(0,243,255,0.6) 50%, rgba(0,243,255,0.15) 85%, transparent 95%)',
+          boxShadow: '0 0 8px rgba(0,243,255,0.2)',
         }}
       />
     </div>

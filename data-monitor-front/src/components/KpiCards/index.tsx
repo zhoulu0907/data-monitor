@@ -1,8 +1,7 @@
 import { useDashboardStore } from '../../store/useDashboardStore';
 import { useCountUp, formatNumber } from '../../hooks/useCountUp';
-import type { KpiItem, Trend } from '../../types/dashboard';
+import type { KpiItem } from '../../types/dashboard';
 
-/** KPI 卡片图标映射 */
 const iconMap: Record<string, string> = {
   '年度合同额': '📋',
   '年度营业收入': '💰',
@@ -19,41 +18,40 @@ function KpiCard({ item, index }: { item: KpiItem; index: number }) {
 
   return (
     <div
-      className={`panel-border corner-cut-sm animate-fade-in-up delay-${index + 1}`}
+      className={`panel-cyber-sm animate-fade-in-up delay-${index + 1}`}
       style={{
         flex: '1',
-        padding: '10px 14px',
+        padding: '8px 12px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '4px',
+        gap: '3px',
         cursor: 'default',
-        transition: 'all 0.2s',
       }}
     >
       {/* 标题行 */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        <span style={{ fontSize: '14px' }}>{iconMap[item.title] || '📌'}</span>
-        <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span style={{ fontSize: '13px' }}>{iconMap[item.title] || '📌'}</span>
+        <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
           {item.title}
         </span>
       </div>
 
-      {/* 主数值 */}
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
+      {/* 主数值 - 荧光效果 */}
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: '3px' }}>
         <span
-          className="font-number glow-text"
-          style={{ fontSize: '24px', fontWeight: 'bold' }}
+          className="font-number"
+          style={{ fontSize: '26px', fontWeight: 'bold', color: 'var(--color-glow)' }}
         >
           {displayValue}
         </span>
-        <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
+        <span style={{ fontSize: '10px', color: 'var(--color-text-secondary)' }}>
           {item.unit}
         </span>
       </div>
 
       {/* 对比值 */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-        <span style={{ fontSize: '11px', color: 'var(--color-text-secondary)' }}>
+        <span style={{ fontSize: '10px', color: 'var(--color-text-secondary)' }}>
           {item.comparisonLabel}
         </span>
         <span style={{ fontSize: '12px', color: trendColor, fontWeight: 'bold' }}>
@@ -79,7 +77,7 @@ export default function KpiCards() {
   ];
 
   return (
-    <div style={{ display: 'flex', gap: '12px' }}>
+    <div style={{ display: 'flex', gap: '10px' }}>
       {items.map((item, index) => (
         <KpiCard key={item.title} item={item} index={index} />
       ))}
