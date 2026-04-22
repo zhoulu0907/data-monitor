@@ -1,0 +1,48 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+*.local
+
+# Docs (本地文档，不提交)
+docs/
+
+# YAML 文件不提交
+*.yml
+*.yaml
+
+# Java / Maven
+target/
+*.class
+*.jar
+*.war
+.settings/
+.project
+.classpath
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.iml
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 环境配置
+.env
+.env.*

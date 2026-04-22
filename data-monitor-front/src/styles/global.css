@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* ===== CSS 变量定义 ===== */
+:root {
+  /* 背景色 */
+  --bg-primary: #040f23;
+  --bg-secondary: #0a1a3a;
+  --bg-panel: rgba(13, 31, 66, 0.6);
+  --bg-panel-hover: rgba(13, 31, 66, 0.8);
+
+  /* 主色调 */
+  --color-glow: #00f3ff;
+  --color-blue: #1890ff;
+  --color-blue-dark: #1d4ed8;
+
+  /* 文字色 */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #8798af;
+  --color-text-accent: #00f3ff;
+
+  /* 功能色 */
+  --color-positive: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-purple: #8b5cf6;
+
+  /* 网格线 */
+  --color-grid: rgba(135, 152, 175, 0.15);
+
+  /* 发光阴影 */
+  --shadow-glow: 0 0 10px rgba(0, 243, 255, 0.1), inset 0 0 10px rgba(0, 243, 255, 0.05);
+  --shadow-glow-accent: 0 0 20px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0, 243, 255, 0.1);
+
+  /* 边框 */
+  --border-glow: 1px solid rgba(0, 243, 255, 0.3);
+  --border-glow-accent: 1px solid rgba(0, 243, 255, 0.6);
+
+  /* 字体 */
+  --font-number: 'Oswald', 'DIN Alternate', 'Impact', monospace;
+
+  /* 间距 */
+  --gap-xs: 4px;
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 16px;
+  --gap-xl: 24px;
+}
+
+/* ===== 全局基础样式 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+  color: var(--color-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 数字字体 */
+.font-number {
+  font-family: var(--font-number);
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 243, 255, 0.2);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 243, 255, 0.4);
+}
+
+/* 去除按钮默认样式 */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+}

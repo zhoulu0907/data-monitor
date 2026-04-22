@@ -1,0 +1,67 @@
+/* ===== 科技感面板边框 ===== */
+.panel-border {
+  border: var(--border-glow);
+  box-shadow: var(--shadow-glow);
+  background: var(--bg-panel);
+  position: relative;
+}
+
+.panel-border:hover {
+  border: var(--border-glow-accent);
+  box-shadow: var(--shadow-glow-accent);
+  transition: all 0.3s ease;
+}
+
+/* 切角效果 */
+.corner-cut {
+  clip-path: polygon(
+    0 12px, 12px 0,
+    calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px)
+  );
+}
+
+/* 小切角 */
+.corner-cut-sm {
+  clip-path: polygon(
+    0 6px, 6px 0,
+    calc(100% - 6px) 0, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 6px) 100%,
+    6px 100%, 0 calc(100% - 6px)
+  );
+}
+
+/* 发光文字 */
+.glow-text {
+  color: var(--color-glow);
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(0, 243, 255, 0.3);
+}
+
+/* 面板标题栏 */
+.panel-title {
+  display: flex;
+  align-items: center;
+  padding: var(--gap-md) var(--gap-lg);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-accent);
+  border-bottom: 1px solid rgba(0, 243, 255, 0.15);
+}
+
+.panel-title::before {
+  content: '';
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  background: var(--color-glow);
+  margin-right: 8px;
+  box-shadow: 0 0 6px var(--color-glow);
+}
+
+/* 分隔线 */
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-glow), transparent);
+  opacity: 0.3;
+}
