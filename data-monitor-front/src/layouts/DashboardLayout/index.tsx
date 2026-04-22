@@ -24,7 +24,6 @@ export default function DashboardLayout() {
       style={{
         width: '100vw',
         height: '100vh',
-        backgroundColor: 'var(--bg-primary)',
         overflow: 'hidden',
       }}
     >
@@ -34,6 +33,8 @@ export default function DashboardLayout() {
           width: '1920px',
           height: '1080px',
           position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {/* 背景渐变 */}
@@ -47,34 +48,35 @@ export default function DashboardLayout() {
           }}
         />
 
-        {/* 顶部标题栏 */}
+        {/* 顶部标题栏 - 60px */}
         <Header />
 
-        {/* KPI 指标卡片 */}
-        <div style={{ padding: '8px 16px' }}>
+        {/* KPI 指标卡片 - 约 80px */}
+        <div style={{ padding: '6px 16px', flexShrink: 0 }}>
           <KpiCards />
         </div>
 
-        {/* 三栏主区域 */}
+        {/* 三栏主区域 - 填满剩余空间 */}
         <div
           style={{
+            flex: 1,
             display: 'flex',
             gap: '12px',
-            padding: '0 16px',
-            height: 'calc(1080px - 140px - 90px)',
+            padding: '6px 16px 16px',
+            minHeight: 0,
           }}
         >
-          {/* 左侧面板 */}
+          {/* 左侧面板 - 约 25% */}
           <div style={{ flex: '0 0 25%' }}>
             <LeftPanel />
           </div>
 
-          {/* 中间面板 */}
+          {/* 中间面板 - 约 45% */}
           <div style={{ flex: '0 0 45%' }}>
             <CenterPanel />
           </div>
 
-          {/* 右侧面板 */}
+          {/* 右侧面板 - 约 30% */}
           <div style={{ flex: '1' }}>
             <RightPanel />
           </div>
