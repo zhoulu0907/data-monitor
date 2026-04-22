@@ -13,49 +13,79 @@
 
     <groupId>com.datamonitor</groupId>
     <artifactId>data-monitor-backend</artifactId>
-    <version>1.0.0</version>
-    <packaging>jar</packaging>
+    <version>2.0.0</version>
+    <packaging>pom</packaging>
     <name>data-monitor-backend</name>
-    <description>数智企业服务平台 - 后端 API</description>
+    <description>数智企业服务平台 v2.0 - 后端 Monorepo</description>
+
+    <modules>
+        <module>data-monitor-common</module>
+        <module>data-monitor-infrastructure</module>
+        <module>data-monitor-service</module>
+        <module>data-monitor-api</module>
+        <module>data-monitor-app</module>
+    </modules>
 
     <properties>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatis-flex.version>1.10.8</mybatis-flex.version>
+        <swagger.version>2.2.22</swagger.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <guava.version>33.4.8-jre</guava.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- 内部模块 -->
+            <dependency>
+                <groupId>com.datamonitor</groupId>
+                <artifactId>data-monitor-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datamonitor</groupId>
+                <artifactId>data-monitor-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datamonitor</groupId>
+                <artifactId>data-monitor-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datamonitor</groupId>
+                <artifactId>data-monitor-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+            <!-- MyBatis-Flex -->
+            <dependency>
+                <groupId>com.mybatis-flex</groupId>
+                <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
+                <version>${mybatis-flex.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations-jakarta</artifactId>
-            <version>2.2.22</version>
-        </dependency>
-    </dependencies>
+            <!-- Swagger -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+            <!-- Apache Commons -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <!-- Guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
