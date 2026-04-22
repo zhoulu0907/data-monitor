@@ -31,6 +31,7 @@ export default function PersonnelAreaChart({ data }: Props) {
       type: 'category' as const,
       data: data.map((d) => d.month),
       boundaryGap: false,
+      axisLabel: { ...theme.xAxis.axisLabel, rotate: 30, fontSize: 9 },
     },
     yAxis: {
       ...theme.yAxis,
