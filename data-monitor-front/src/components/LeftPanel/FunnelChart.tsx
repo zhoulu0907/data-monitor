@@ -8,14 +8,22 @@ interface Props {
 
 export default function FunnelChart({ data }: Props) {
   const theme = getDarkTheme();
-  const colors = ['#67e8f9', '#38bdf8', '#22d3ee', '#1890ff', '#1d4ed8'];
+
+  // 每层渐变色：从亮青到深蓝
+  const gradients = [
+    { from: '#00f3ff', to: '#38bdf8' },
+    { from: '#38bdf8', to: '#22d3ee' },
+    { from: '#22d3ee', to: '#1890ff' },
+    { from: '#1890ff', to: '#1d4ed8' },
+    { from: '#1d4ed8', to: '#0a4291' },
+  ];
 
   const option = {
     ...theme,
     tooltip: {
       ...theme.tooltip,
       trigger: 'item' as const,
-      formatter: (params: { name: string; value: number; percent: number }) => {
+      formatter: (params: { name: string; value: number }) => {
         return `${params.name}<br/>金额：${params.value.toLocaleString()} 万元<br/>转化率：${data.find(d => d.stage === params.name)?.rate ?? '-'}%`;
       },
     },
@@ -29,35 +37,36 @@ export default function FunnelChart({ data }: Props) {
         minSize: '20%',
         maxSize: '100%',
         sort: 'descending' as const,
-        gap: 4,
+        gap: 6,
         label: {
           show: true,
           position: 'inside' as const,
           formatter: '{b}\n{c} 万元',
-          fontSize: 11,
+          fontSize: 12,
           color: '#ffffff',
+          fontWeight: 'bold' as const,
         },
-        labelLine: {
-          show: true,
-          lineStyle: { color: 'rgba(0,243,255,0.5)' },
-        },
+        labelLine: { show: false },
         itemStyle: {
-          borderColor: 'rgba(0,243,255,0.2)',
-          borderWidth: 1,
+          borderColor: 'transparent',
+          borderWidth: 0,
         },
         emphasis: {
-          label: { fontSize: 13, fontWeight: 'bold' as const },
+          label: { fontSize: 14, fontWeight: 'bold' as const },
           itemStyle: {
-            borderColor: '#00f3ff',
-            borderWidth: 2,
-            shadowBlur: 10,
-            shadowColor: 'rgba(0,243,255,0.5)',
+            shadowBlur: 15,
+            shadowColor: 'rgba(0,243,255,0.6)',
           },
         },
         data: data.map((item, index) => ({
           name: item.stage,
           value: item.value,
-          itemStyle: { color: colors[index] },
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+              { offset: 0, color: gradients[index].from },
+              { offset: 1, color: gradients[index].to },
+            ]),
+          },
         })),
       },
     ],

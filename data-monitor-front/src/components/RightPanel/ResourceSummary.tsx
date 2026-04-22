@@ -22,9 +22,8 @@ export default function ResourceSummary({ data }: Props) {
             alignItems: 'center',
             gap: '6px',
             padding: '6px 8px',
-            background: 'rgba(0, 243, 255, 0.03)',
-            border: '1px solid rgba(0, 243, 255, 0.1)',
-            borderRadius: '2px',
+            background: 'rgba(255, 170, 0, 0.03)',
+            border: 'none',
           }}
         >
           <span style={{ fontSize: '14px' }}>{item.icon}</span>
@@ -34,7 +33,7 @@ export default function ResourceSummary({ data }: Props) {
             </div>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px' }}>
               <span
-                className="font-number glow-text"
+                className="font-number-gold"
                 style={{ fontSize: '15px', fontWeight: 'bold' }}
               >
                 {typeof item.value === 'number' && item.value % 1 !== 0
