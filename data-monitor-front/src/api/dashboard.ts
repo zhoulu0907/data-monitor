@@ -12,8 +12,8 @@ import { mockMarketPipeline } from '../mocks/market';
 import { mockFinanceTrends } from '../mocks/finance';
 import { mockAiInsights } from '../mocks/ai';
 
-/** 是否使用 Mock 数据 */
-const USE_MOCK = true;
+/** 是否使用 Mock 数据（切换为 false 使用真实后端 API） */
+const USE_MOCK = false;
 
 const apiClient = axios.create({
   baseURL: '/api/v1/dashboard',
