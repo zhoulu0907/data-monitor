@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { NavItem } from '../../types/dashboard';
 
 const leftNavItems: NavItem[] = [
@@ -48,6 +49,8 @@ function NavButton({ item, onClick }: { item: NavItem; onClick?: () => void }) {
 }
 
 export default function Header() {
+  const navigate = useNavigate();
+
   const handleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -110,7 +113,7 @@ export default function Header() {
           <NavButton
             key={item.key}
             item={item}
-            onClick={item.key === 'fullscreen' ? handleFullscreen : undefined}
+            onClick={item.key === 'ai' ? () => navigate('/ai-chat') : item.key === 'fullscreen' ? handleFullscreen : undefined}
           />
         ))}
         <svg width="180" height="30" style={{ opacity: 0.4 }}>
