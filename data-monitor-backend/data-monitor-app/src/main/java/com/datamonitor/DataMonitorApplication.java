@@ -1,5 +1,6 @@
 package com.datamonitor;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2026-04-22
  */
 @SpringBootApplication
+@MapperScan("com.datamonitor.mapper")
 public class DataMonitorApplication {
 
     public static void main(String[] args) {
