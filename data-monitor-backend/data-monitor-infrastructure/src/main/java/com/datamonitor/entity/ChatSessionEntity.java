@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Table("chat_session")
 public class ChatSessionEntity {
 
-    @Id(keyType = KeyType.Generator)
+    @Id(keyType = KeyType.None)
     private String id;
 
     private String title;
