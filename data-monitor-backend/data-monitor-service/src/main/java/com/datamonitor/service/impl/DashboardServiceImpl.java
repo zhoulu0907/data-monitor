@@ -330,12 +330,19 @@ public class DashboardServiceImpl implements DashboardService {
                                    String comparisonLabel, String comparisonValue) {
         KpiItemVO item = new KpiItemVO();
         item.setTitle(title);
-        item.setValue(value.doubleValue());
+        item.setValue(normalizeKpiValue(value, unit).doubleValue());
         item.setUnit(unit);
         item.setComparisonLabel(comparisonLabel);
         item.setComparisonValue(comparisonValue);
         item.setTrend(comparisonValue.startsWith("+") ? "up" : "down");
         return item;
+    }
+
+    private BigDecimal normalizeKpiValue(BigDecimal value, String unit) {
+        if ("%".equals(unit)) {
+            return value.setScale(1, RoundingMode.HALF_UP);
+        }
+        return value;
     }
 
     /** 计算同比百分比 */
