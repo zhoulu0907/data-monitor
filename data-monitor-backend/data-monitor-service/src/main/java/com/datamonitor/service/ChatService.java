@@ -29,6 +29,6 @@ public interface ChatService {
     /** 保存消息 */
     void saveMessage(String sessionId, String role, String content, String componentData);
 
-    /** Mock 模式 SSE 流式处理 */
+    /** SSE 流式对话处理 */
     void processChatStream(SseEmitter emitter, String sessionId, String message);
 }
