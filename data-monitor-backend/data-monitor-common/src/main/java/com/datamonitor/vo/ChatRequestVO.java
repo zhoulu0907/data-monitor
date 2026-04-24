@@ -25,4 +25,18 @@ public class ChatRequestVO {
 
     @Schema(description = "模型标识")
     private String model;
+
+    /**
+     * 校验请求参数
+     *
+     * @throws IllegalArgumentException 参数不合法时抛出
+     */
+    public void validate() {
+        if (message == null || message.isBlank()) {
+            throw new IllegalArgumentException("消息内容不能为空");
+        }
+        if (message.length() > 2000) {
+            throw new IllegalArgumentException("消息长度不能超过2000个字符");
+        }
+    }
 }

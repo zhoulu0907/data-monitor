@@ -6,6 +6,7 @@ import com.datamonitor.vo.ChatMessageVO;
 import com.datamonitor.vo.ChatRequestVO;
 import com.datamonitor.vo.ChatSessionVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @author zhoulu
  * @since 2026-04-23
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/chat")
 @RequiredArgsConstructor
@@ -57,9 +59,10 @@ public class ChatController {
     }
 
     /**
-     * SSE 流式对话接口（Mock 模式）
+     * SSE 流式对话接口
      * <p>
-     * 接收用户消息，通过 SSE 逐块返回 AI 回复。
+     * 接收用户消息，调用 LLM 通过 SSE 逐块返回 AI 回复。
+     * 支持 Function Calling 和 A2UI 组件指令。
      * SSE 数据格式：
      * - data:[TEXT]文本内容
      * - data:[COMPONENT]{"componentName":"xxx","props":{...}}
@@ -67,13 +70,22 @@ public class ChatController {
      */
     @PostMapping(value = "/completions", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter completions(@RequestBody ChatRequestVO request) {
+        // 参数校验
+        request.validate();
+
         // 创建 SseEmitter，设置超时时间
         SseEmitter emitter = new SseEmitter(TimeUnit.MINUTES.toMillis(SSE_TIMEOUT_MINUTES));
 
         // 设置连接生命周期回调
-        emitter.onCompletion(() -> {});
-        emitter.onTimeout(emitter::complete);
-        emitter.onError(e -> emitter.completeWithError(e));
+        emitter.onCompletion(() -> log.debug("SSE 连接正常关闭"));
+        emitter.onTimeout(() -> {
+            log.warn("SSE 连接超时");
+            emitter.complete();
+        });
+        emitter.onError(e -> {
+            log.warn("SSE 连接异常: {}", e.getMessage());
+            emitter.completeWithError(e);
+        });
 
         // 异步处理 SSE 流
         chatService.processChatStream(emitter, request.getSessionId(), request.getMessage());

@@ -443,15 +443,47 @@ export const useAiChatStore = create<AiChatState>((set, get) => ({
   loadMessages: async (sessionId: string) => {
     try {
       const messages = await apiListMessages(sessionId);
+      // 将后端返回的消息转换为前端的 chunks 格式
+      const convertedMessages = messages.map((msg) => {
+        // 如果已经有 chunks（实时消息），直接使用
+        if (msg.chunks && msg.chunks.length > 0) {
+          return msg;
+        }
+        // 从后端加载的历史消息：将 content 和 componentData 转换为 chunks
+        const chunks: ChatMessageChunk[] = [];
+        if (msg.role === 'assistant') {
+          if (msg.content) {
+            chunks.push({ type: 'text', content: msg.content });
+          }
+          if (msg.componentData) {
+            try {
+              const parsed = JSON.parse(msg.componentData) as {
+                componentName: string;
+                props: Record<string, unknown>;
+              };
+              chunks.push({ type: 'component', componentName: parsed.componentName, props: parsed.props });
+            } catch {
+              // componentData 解析失败，忽略
+            }
+          }
+          // 如果没有任何内容，至少显示一个空文本
+          if (chunks.length === 0) {
+            chunks.push({ type: 'text', content: msg.content || '' });
+          }
+        } else {
+          // 用户消息
+          chunks.push({ type: 'text', content: msg.content });
+        }
+        return { ...msg, chunks };
+      });
       set((state) => ({
         messagesMap: {
           ...state.messagesMap,
-          [sessionId]: messages,
+          [sessionId]: convertedMessages,
         },
       }));
     } catch (error) {
       console.error('加载消息失败:', error);
-      // 加载失败时设置为空数组，避免重复请求
       set((state) => ({
         messagesMap: {
           ...state.messagesMap,

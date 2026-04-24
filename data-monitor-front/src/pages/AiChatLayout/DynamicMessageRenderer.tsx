@@ -70,6 +70,10 @@ class ComponentErrorBoundary extends ReactComponent<
 }
 
 export default function DynamicMessageRenderer({ chunks }: Props) {
+  if (!chunks || chunks.length === 0) {
+    return null;
+  }
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
       {chunks.map((chunk, idx) => {
@@ -117,16 +121,7 @@ export default function DynamicMessageRenderer({ chunks }: Props) {
 
         return (
           <ComponentErrorBoundary key={idx} componentName={chunk.componentName}>
-            <div
-              style={{
-                background: 'rgba(0,243,255,0.03)',
-                border: '1px solid rgba(0,243,255,0.1)',
-                borderRadius: '8px',
-                padding: '12px',
-              }}
-            >
-              <Component name={chunk.componentName} {...chunk.props} />
-            </div>
+            <Component {...chunk.props} />
           </ComponentErrorBoundary>
         );
       })}
