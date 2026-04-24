@@ -13,10 +13,10 @@
 
     <groupId>com.datamonitor</groupId>
     <artifactId>data-monitor-backend</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
     <name>data-monitor-backend</name>
-    <description>数智企业服务平台 v2.0 - 后端 Monorepo</description>
+    <description>数智企业服务平台 v3.0 - Spring AI 重构版</description>
 
     <modules>
         <module>data-monitor-common</module>
